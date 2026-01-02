@@ -1,0 +1,5 @@
+*.log
+*.txt
+password.txt
+server.log
+tunnel.log

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tianhao Su - Physics & Deep Learning Research</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f4c75;
+            --highlight: #3282b8;
+            --text: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --border: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Grid background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(48, 130, 184, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(48, 130, 184, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #e8e8e8 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title-accent {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--highlight);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        /* Section styling */
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 20px;
+            background: var(--highlight);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            max-width: 800px;
+        }
+
+        /* Research grid */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .research-item {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            padding: 28px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--highlight), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .research-item:hover {
+            border-color: var(--highlight);
+            transform: translateY(-4px);
+        }
+
+        .research-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .research-item h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .research-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Publications/Projects section */
+        .publication-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .publication-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .pub-title {
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .pub-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Skills tags */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .skill-tag {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--highlight);
+            color: var(--highlight);
+            background: rgba(50, 130, 184, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Subtle accent animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .accent-dot {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(50, 130, 184, 0.15), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .accent-dot:nth-child(1) {
+            top: 10%;
+            right: 10%;
+        }
+
+        .accent-dot:nth-child(2) {
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="accent-dot"></div>
+    <div class="accent-dot"></div>
+
+    <div class="container">
+        <header>
+            <h1>Tianhao Su</h1>
+            <span class="title-accent">Physics × Deep Learning Research</span>
+        </header>
+
+        <section>
+            <h2>About</h2>
+            <p class="about-text">
+                I am a researcher working at the intersection of theoretical physics and machine learning.
+                My work focuses on leveraging graph neural networks and physics-informed deep learning
+                to solve complex problems in computational physics, quantum mechanics, and materials science.
+            </p>
+        </section>
+
+        <section>
+            <h2>Research Areas</h2>
+            <div class="research-grid">
+                <div class="research-item">
+                    <h3>Graph Neural Networks</h3>
+                    <p>Developing GNN architectures for modeling physical systems, molecular dynamics, and quantum many-body problems with learned representations.</p>
+                </div>
+                <div class="research-item">
+                    <h3>Physics-Informed Machine Learning</h3>
+                    <p>Integrating physical laws, conservation principles, and symmetries into neural network architectures for improved generalization.</p>
+                </div>
+                <div class="research-item">
+                    <h3>Computational Physics</h3>
+                    <p>Applying deep learning to quantum mechanics simulations, statistical physics, and high-dimensional partial differential equations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Selected Projects</h2>
+            <ul class="publication-list">
+                <li class="publication-item">
+                    <div class="pub-title">Neural Network Approaches to Quantum Many-Body Systems</div>
+                    <div class="pub-meta">Graph-based architectures for solving Schrödinger equations</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Physics-Constrained GNNs for Molecular Dynamics</div>
+                    <div class="pub-meta">Incorporating symmetries and conservation laws in molecular simulations</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Deep Learning for Statistical Mechanics</div>
+                    <div class="pub-meta">Variational methods and generative models for partition functions</div>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Technical Expertise</h2>
+            <div class="skills-container">
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">PyTorch Geometric</span>
+                <span class="skill-tag">TensorFlow</span>
+                <span class="skill-tag">JAX</span>
+                <span class="skill-tag">Graph Neural Networks</span>
+                <span class="skill-tag">Physics-Informed NNs</span>
+                <span class="skill-tag">Quantum Mechanics</span>
+                <span class="skill-tag">Statistical Physics</span>
+                <span class="skill-tag">Scientific Computing</span>
+                <span class="skill-tag">NumPy/SciPy</span>
+                <span class="skill-tag">CUDA</span>
+            </div>
+        </section>
+
+        <footer>
+            <p>Advancing the frontier of physics through machine learning</p>
+        </footer>
+    </div>
+</body>
+</html>
