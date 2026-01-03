@@ -194,6 +194,70 @@
             font-size: 0.9rem;
         }
 
+        /* Featured publication cards with images */
+        .featured-publications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        .pub-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pub-card:hover {
+            border-color: var(--highlight);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .pub-card-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pub-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pub-card-content {
+            padding: 24px;
+        }
+
+        .pub-card-title {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .pub-card-authors {
+            color: var(--highlight);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .pub-card-abstract {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+
         /* Skills tags */
         .skills-container {
             display: flex;
@@ -312,7 +376,58 @@
         </section>
 
         <section>
-            <h2>Publications</h2>
+            <h2>Featured Publications</h2>
+            <div class="featured-publications">
+                <!-- DD2D Paper 2025 -->
+                <div class="pub-card">
+                    <div class="pub-card-image">
+                        <img src="images/papers/dd2d_2025.jpg" alt="DD2D Framework">
+                    </div>
+                    <div class="pub-card-content">
+                        <div class="pub-card-title">Physics-guided deep learning strategy for 2D structure reconstruction from diffraction patterns</div>
+                        <div class="pub-card-authors">Fu, R., Su, T., Li, M., Wu, Y., et al. (2025)</div>
+                        <div class="pub-card-abstract">
+                            Introduced DD2D, a physics-guided deep learning method that predicts 2D structures directly from diffraction patterns.
+                            The model employs a twin-tower framework with crystallographic geometric encoder and site texture encoder,
+                            achieving 99.0% prediction accuracy with robust anti-interference capabilities and reliable interpretability.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ASUGNN Paper 2025 -->
+                <div class="pub-card">
+                    <div class="pub-card-image">
+                        <img src="images/papers/asugnn_2025.jpg" alt="ASUGNN Architecture">
+                    </div>
+                    <div class="pub-card-content">
+                        <div class="pub-card-title">ASUGNN: an asymmetric-unit-based graph neural network for crystal property prediction</div>
+                        <div class="pub-card-authors">Cao, B., Anderson, D., Davis, L., et al. (2025)</div>
+                        <div class="pub-card-abstract">
+                            Developed ASUGNN, a novel graph neural network architecture that leverages asymmetric unit information
+                            for crystal property prediction. The model incorporates crystallographic symmetries and space group constraints,
+                            providing enhanced accuracy in predicting material properties from crystal structures.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KAN Paper 2024 -->
+                <div class="pub-card">
+                    <div class="pub-card-image">
+                        <img src="images/papers/kan_2024.jpg" alt="KAN Framework">
+                    </div>
+                    <div class="pub-card-content">
+                        <div class="pub-card-title">Kolmogorov–Arnold Network Made Learning Physics Laws Simple</div>
+                        <div class="pub-card-authors">Wu, Y., Su, T., Du, B., Hu, S., et al. (2024)</div>
+                        <div class="pub-card-abstract">
+                            Introduced KCCP (Kolmogorov-Arnold Contrastive Crystal Property Pretraining), a novel contrastive learning framework
+                            that integrates KAN with CLIP principles. The model establishes robust correlations between crystal structures
+                            and physical properties, significantly outperforming traditional MLPs in accuracy and convergence speed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>All Publications</h2>
             <ul class="publication-list">
                 <li class="publication-item">
                     <div class="pub-title">Physics-guided deep learning strategy for 2D structure reconstruction from diffraction patterns</div>
