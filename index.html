@@ -15,10 +15,25 @@
             --border: #2a2a3e;
         }
 
+        /* Light Mode */
+        body.light-mode {
+            --primary: #f5f5f5;
+            --secondary: #ffffff;
+            --accent: #2196F3;
+            --highlight: #1976D2;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e0e0e0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -79,6 +94,34 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             margin-top: 8px;
+        }
+
+        /* Contact Links */
+        .contact-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-link:hover {
+            color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        .contact-link::before {
+            content: '→';
+            color: var(--highlight);
         }
 
         /* Section styling */
@@ -277,10 +320,156 @@
             font-family: 'Courier New', monospace;
         }
 
+        /* Academic Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .metric-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--highlight);
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Citation Chart */
+        .citation-chart {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+        }
+
+        .chart-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 10px;
+            padding: 0 10px;
+        }
+
+        .bar-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 50px;
+            background: var(--highlight);
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 5px;
+        }
+
+        .bar:hover {
+            background: rgba(50, 130, 184, 0.8);
+        }
+
+        .bar-value {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .bar-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
         .skill-tag:hover {
             border-color: var(--highlight);
             color: var(--highlight);
             background: rgba(50, 130, 184, 0.1);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--highlight);
+            color: var(--primary);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--text);
+            transform: translateY(-5px);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.3rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--highlight);
+            transform: rotate(180deg);
         }
 
         /* Footer */
@@ -345,16 +534,75 @@
         <header>
             <h1>Tianhao Su</h1>
             <span class="title-accent">Physics × Deep Learning Research</span>
+            <div class="contact-links">
+                <a href="mailto:thsu0407@gmail.com" class="contact-link">thsu0407@gmail.com</a>
+                <a href="https://github.com/SuthPhy2Ai" target="_blank" class="contact-link">GitHub</a>
+                <a href="https://scholar.google.com" target="_blank" class="contact-link">Google Scholar</a>
+            </div>
         </header>
 
         <section>
             <h2>About</h2>
             <p class="about-text">
-                I am a researcher working at the intersection of materials science and artificial intelligence.
-                My work focuses on developing machine learning methods for crystal structure prediction, materials property prediction,
-                and accelerated materials discovery. I specialize in graph neural networks, physics-informed deep learning,
-                and active learning strategies for computational materials science.
+                Hi! I'm a PhD candidate at Shanghai University, where I spend my days teaching computers to understand crystals
+                (yes, they're surprisingly stubborn learners). Here's what I'm up to:
             </p>
+            <p class="about-text">
+                🔬 <strong>The Mission:</strong> Bridging physics and AI to discover new materials faster than traditional methods.
+                Think of it as giving scientists a crystal ball (pun intended) to predict material properties before spending months in the lab.
+            </p>
+            <p class="about-text">
+                🧠 <strong>The Approach:</strong> I build graph neural networks that actually understand crystallographic symmetries—not just
+                memorizing patterns like a parrot, but genuinely learning the physics. It's like teaching AI to think like a physicist,
+                minus the coffee addiction.
+            </p>
+            <p class="about-text">
+                🎯 <strong>The Goal:</strong> Autonomous materials discovery. Imagine AI exploring vast chemical spaces to find
+                next-generation superconductors, batteries, or catalysts while you sleep. We're not quite there yet, but we're getting close!
+            </p>
+            <p class="about-text">
+                📚 <strong>The Background:</strong> Master's in Physics + current PhD in Materials Informatics = the perfect excuse to
+                combine quantum mechanics, machine learning, and way too many Python scripts.
+            </p>
+        </section>
+
+        <section>
+            <h2>Academic Metrics</h2>
+            <div class="citation-chart">
+                <div class="chart-title">Citations per Year</div>
+                <div class="chart-bars">
+                    <div class="bar-container">
+                        <div class="bar-value">1</div>
+                        <div class="bar" style="height: 5px;"></div>
+                        <div class="bar-label">2021</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-value">8</div>
+                        <div class="bar" style="height: 18px;"></div>
+                        <div class="bar-label">2022</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-value">10</div>
+                        <div class="bar" style="height: 22px;"></div>
+                        <div class="bar-label">2023</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-value">23</div>
+                        <div class="bar" style="height: 52px;"></div>
+                        <div class="bar-label">2024</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-value">89</div>
+                        <div class="bar" style="height: 200px;"></div>
+                        <div class="bar-label">2025</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-value">4</div>
+                        <div class="bar" style="height: 9px;"></div>
+                        <div class="bar-label">2026</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section>
@@ -369,7 +617,7 @@
                     <p>Creating specialized GNN architectures like ASUGNN for crystal property prediction, incorporating crystallographic symmetries and geometric features into neural network designs.</p>
                 </div>
                 <div class="research-item">
-                    <h3>Physics-Informed Deep Learning</h3>
+                    <h3>Physics-guided Deep Learning</h3>
                     <p>Integrating physical laws and domain knowledge into neural networks for structure reconstruction from diffraction patterns, learning physics laws, and computational materials design.</p>
                 </div>
             </div>
@@ -526,40 +774,84 @@
             <h2>All Publications</h2>
             <ul class="publication-list">
                 <li class="publication-item">
+                    <div class="pub-title">KAN-Enhanced Contrastive Learning Accelerating Crystal Structure Identification from XRD Patterns</div>
+                    <div class="pub-meta">C Xu, T Su, J Xiong, Y Wu, et al. • arXiv preprint • 2025</div>
+                </li>
+                <li class="publication-item">
                     <div class="pub-title">Physics-guided deep learning strategy for 2D structure reconstruction from diffraction patterns</div>
-                    <div class="pub-meta">Fu, R., Su, T., et al. (2025)</div>
+                    <div class="pub-meta">R Fu, T Su, M Li, Y Wu, et al. • Communications Physics • 3 citations • 2025</div>
                 </li>
                 <li class="publication-item">
-                    <div class="pub-title">Active learning accelerates the discovery of high strength and high ductility lead-free solder alloy</div>
-                    <div class="pub-meta">Cao, B., Su, T., et al. (2024)</div>
+                    <div class="pub-title">Compositional optimization of rare earth permanent magnetic alloy by machine learning</div>
+                    <div class="pub-meta">L Zhang, T Su, Y Cui, G Qin, et al. • Journal of Magnetism and Magnetic Materials • 2025</div>
                 </li>
                 <li class="publication-item">
-                    <div class="pub-title">Crystallographic phase identifier of a convolutional self-attention neural network (CPICANN) on powder diffraction</div>
-                    <div class="pub-meta">Zhang, S., Cao, B., Su, T., et al. (2024)</div>
+                    <div class="pub-title">ASUGNN: an asymmetric-unit-based graph neural network for crystal property prediction</div>
+                    <div class="pub-meta">B Cao, D Anderson, L Davis • Applied Crystallography • 4 citations • 2025</div>
                 </li>
                 <li class="publication-item">
-                    <div class="pub-title">Kolmogorov–Arnold Network Made Learning Physics Laws Simple</div>
-                    <div class="pub-meta">Wu, Y., Su, T., et al. (2024)</div>
+                    <div class="pub-title">Machine Learning‐Engineered Nanozyme System for Synergistic Anti‐Tumor Ferroptosis/Apoptosis Therapy</div>
+                    <div class="pub-meta">T Li, B Cao, T Su, L Lin, et al. • Small • 8 citations • 2025</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Interpretable Active Learning Identifies Iron‐Doped Carbon Dots With High Photothermal Conversion Efficiency</div>
+                    <div class="pub-meta">T Li, B Cao, Y Wang, L Lin, et al. • Aggregate • 2 citations • 2025</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Kolmogorov–arnold network made learning physics laws simple</div>
+                    <div class="pub-meta">Y Wu, T Su, B Du, S Hu, et al. • The Journal of Physical Chemistry Letters • 15 citations • 2024</div>
                 </li>
                 <li class="publication-item">
                     <div class="pub-title">CGWGAN: crystal generative framework based on Wyckoff generative adversarial network</div>
-                    <div class="pub-meta">Su, T., Cao, B., et al. (2024)</div>
+                    <div class="pub-meta">T Su, B Cao, S Hu, M Li, TY Zhang • Journal of Materials Informatics • 17 citations • 2024</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">蛋白质结构标注中的基于支持向量机的拉氏图优化方法</div>
+                    <div class="pub-meta">王博， 苏天昊， 徐妍婷， 高恒， 郭聪， 李永乐， 吴伟 • 上海大学学报 • 2024</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Crystallographic phase identifier of a convolutional self-attention neural network (CPICANN) on powder diffraction patterns</div>
+                    <div class="pub-meta">S Zhang, B Cao, T Su, Y Wu, et al. • IUCrJ • 6 citations • 2024</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Active learning accelerates the discovery of high strength and high ductility lead-free solder alloys</div>
+                    <div class="pub-meta">B Cao, T Su, S Yu, T Li, et al. • Materials & Design • 25 citations • 2024</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Electric field and charge doping induced superconducting transition in 2D freestanding perovskite barium bismuthate</div>
+                    <div class="pub-meta">Y Cui, T Su, L Qiao, Z Gu, et al. • Science China Physics, Mechanics & Astronomy • 1 citation • 2023</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Magnetic transitions of hydrogenated H x CrO2 (x= 0–2) monolayer from a ferromagnetic half-metal to antiferromagnetic insulator</div>
+                    <div class="pub-meta">W Ouyang, B Shi, T Su, X Cheng, et al. • Journal of Physics: Condensed Matter • 2 citations • 2023</div>
                 </li>
                 <li class="publication-item">
                     <div class="pub-title">Cuprate superconducting materials above liquid nitrogen temperature from machine learning</div>
-                    <div class="pub-meta">Wang, Y., Su, T., et al. (2023)</div>
+                    <div class="pub-meta">Y Wang, T Su, Y Cui, X Ma, et al. • RSC advances • 6 citations • 2023</div>
                 </li>
                 <li class="publication-item">
-                    <div class="pub-title">Physics-Based Feature Makes Machine Learning Cognizing Crystal Properties Simple</div>
-                    <div class="pub-meta">Su, T., et al. (2021)</div>
+                    <div class="pub-title">Accurate band gap prediction based on an interpretable Δ-machine learning</div>
+                    <div class="pub-meta">L Zhang, T Su, M Li, F Jia, et al. • Materials Today Communications • 17 citations • 2022</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Volume-matched piezoelectric LaN/REN superlattices from first-principles</div>
+                    <div class="pub-meta">X Yang, T Su, M Hu, Y Li, et al. • Applied Physics Letters • 1 citation • 2022</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Strain-induced ferroelectricity and piezoelectricity in centrosymmetric binary oxides</div>
+                    <div class="pub-meta">X Yang, C Liu, L Fang, T Su, et al. • Physical Review B • 5 citations • 2022</div>
                 </li>
                 <li class="publication-item">
                     <div class="pub-title">Volume-matched ferroelectric and piezoelectric ZnO/MgO superlattice</div>
-                    <div class="pub-meta">Yang, X., Hu, M., Su, T., et al. (2021)</div>
+                    <div class="pub-meta">X Yang, M Hu, T Su, X Ma, et al. • Journal of Alloys and Compounds • 12 citations • 2021</div>
+                </li>
+                <li class="publication-item">
+                    <div class="pub-title">Physics-Based Feature Makes Machine Learning Cognizing Crystal Properties Simple</div>
+                    <div class="pub-meta">T Su, Y Cui, Z Lian, M Hu, et al. • The Journal of Physical Chemistry Letters • 5 citations • 2021</div>
                 </li>
                 <li class="publication-item">
                     <div class="pub-title">Ferroic properties and piezoelectric response of Mg2XN3 (X = V, Cr)</div>
-                    <div class="pub-meta">Hu, M., Yang, X., Su, T., et al. (2021)</div>
+                    <div class="pub-meta">M Hu, X Yang, T Su, X Ma, W Ren • Applied Physics Letters • 7 citations • 2021</div>
                 </li>
             </ul>
         </section>
@@ -586,5 +878,46 @@
             <p>Advancing the frontier of physics through machine learning</p>
         </footer>
     </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+
+    <script>
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Theme Toggle with localStorage
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLight = body.classList.contains('light-mode');
+            themeToggle.textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+    </script>
 </body>
 </html>
