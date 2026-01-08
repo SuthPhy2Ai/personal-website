@@ -1,0 +1,5 @@
+{
+  "name": "DeePAW",
+  "description": "High-end scientific interface for E(3)-Equivariant Neural Network Charge Density Prediction based on the PAW method.",
+  "requestFramePermissions": []
+}
