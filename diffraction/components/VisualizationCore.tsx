@@ -99,50 +99,68 @@ const VisualizationCore: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [xrdData, setXrdData] = useState<XRDDataPoint[]>([]);
 
-  // 1. Generate Realistic XRD Data
+  // 1. Generate Realistic XRD Data with Noise Simulation
   useEffect(() => {
-    const generateXRD = () => {
+    // Silicon-like pattern (sharp crystalline peaks)
+    const peaks = [
+      { pos: 28.44,  int: 1200, width: 0.3 }, 
+      { pos: 47.30,  int: 750,  width: 0.35 },
+      { pos: 56.12,  int: 500,  width: 0.35 },
+      { pos: 69.13,  int: 200,  width: 0.4 },
+      { pos: 76.38,  int: 350,  width: 0.4 },
+      { pos: 88.03,  int: 250,  width: 0.45 },
+    ];
+
+    const lorentzian = (x: number, x0: number, h: number, w: number) => {
+      return h / (1 + Math.pow((x - x0) / (w / 2), 2));
+    };
+
+    const startAngle = 10;
+    const endAngle = 90;
+    const step = 0.05; 
+
+    const updateXRD = () => {
       const data: XRDDataPoint[] = [];
-      const startAngle = 10;
-      const endAngle = 90;
-      // High resolution step to render sharp peaks correctly
-      const step = 0.02; 
+      const time = Date.now();
+      
+      // Glitch Logic: Horizontal shift (Sample Displacement Error / Goniometer error)
+      const isGlitchTime = (time % 3500) < 150; // Glitch every 3.5s
+      
+      // 1. Base "breathing" shift (very subtle thermal expansion simulation)
+      let shift = Math.sin(time / 1000) * 0.03;
 
-      // Silicon-like pattern (sharp crystalline peaks)
-      const peaks = [
-        { pos: 28.44,  int: 1200, width: 0.3 }, 
-        { pos: 47.30,  int: 750,  width: 0.35 },
-        { pos: 56.12,  int: 500,  width: 0.35 },
-        { pos: 69.13,  int: 200,  width: 0.4 },
-        { pos: 76.38,  int: 350,  width: 0.4 },
-        { pos: 88.03,  int: 250,  width: 0.45 },
-      ];
-
-      const lorentzian = (x: number, x0: number, h: number, w: number) => {
-        return h / (1 + Math.pow((x - x0) / (w / 2), 2));
-      };
+      // 2. Glitch shift (Significant lateral movement)
+      if (isGlitchTime) {
+         // Random shift between -0.5 and 0.5 degrees
+         shift += (Math.random() - 0.5) * 1.0;
+      }
 
       for (let angle = startAngle; angle <= endAngle; angle += step) {
-        let intensity = 15; // Base noise
+        let intensity = 15; // Constant baseline
         
         peaks.forEach(peak => {
-          intensity += lorentzian(angle, peak.pos, peak.int, peak.width);
+          // Apply shift to peak position to move it left/right (Horizontal Jitter)
+          // Also add minute independent thermal vibration per peak
+          const thermalJitter = Math.sin(time / 200 + peak.pos) * 0.02;
+          intensity += lorentzian(angle, peak.pos + shift + thermalJitter, peak.int, peak.width);
         });
 
-        // Perlin-ish noise for reality
-        intensity += Math.random() * 10;
-        
-        // Low angle scattering (air scatter/glass)
+        // Constant low-level sensor noise (stable background)
+        intensity += Math.random() * 15;
+
+        // Low angle scattering
         if (angle < 20) {
             intensity += 60 * Math.exp(-(angle - 10) / 5);
         }
 
         data.push({ angle, intensity });
       }
-      return data;
+      setXrdData(data);
     };
 
-    setXrdData(generateXRD());
+    const intervalId = setInterval(updateXRD, 40); // 25 FPS for smooth movement
+
+    return () => clearInterval(intervalId);
   }, []);
 
   // 2. Crystal Animation System
@@ -310,15 +328,10 @@ const VisualizationCore: React.FC = () => {
               strokeWidth={1.5}
               fillOpacity={1} 
               fill="url(#colorIntensity)" 
-              isAnimationActive={true}
-              animationDuration={2000}
+              isAnimationActive={false} // Disabled smooth animation to make the jitter feel like raw sensor data
             />
           </AreaChart>
         </ResponsiveContainer>
-        <div className="absolute bottom-4 left-4 font-mono text-xs text-cyber-cyan tracking-widest flex items-center gap-2">
-           <span className="w-2 h-2 bg-cyber-red rounded-full animate-pulse"></span>
-           XRD_SPECTRAL_FEED // PHASE_ID: Si_POLY
-        </div>
       </div>
     </div>
   );

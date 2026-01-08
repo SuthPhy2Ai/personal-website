@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ScanFace, Fingerprint, Activity, Radio, Cpu, Github, Mail, ArrowRight } from 'lucide-react';
 
 interface ControlPanelProps {
@@ -10,24 +10,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onLogin }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<'LOGIN' | 'REGISTER'>('LOGIN');
-
-  // Micro-interaction simulation
-  const [sysStatus, setSysStatus] = useState({
-    dim: 1024,
-    lattice: 'Cubic',
-    temp: 298
-  });
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSysStatus(prev => ({
-        ...prev,
-        temp: 298 + Math.floor(Math.random() * 5),
-        dim: 1024 + (Math.random() > 0.9 ? 128 : 0) // Glitch effect
-      }));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleAuth = (e: React.FormEvent) => {
     e.preventDefault();
@@ -191,18 +173,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onLogin }) => {
               <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-cyber-cyan/20 to-transparent -translate-x-full group-hover:animate-scan" />
             </button>
           </form>
-
-          {/* Footer / HUD Stats */}
-          <div className="mt-8 pt-6 border-t border-white/5 flex justify-between font-mono text-[10px] text-cyber-gray/50">
-            <div className="flex flex-col gap-1">
-              <span className="flex items-center gap-1"><Radio size={10} /> SYS_ONLINE</span>
-              <span>LAT: {sysStatus.lattice}</span>
-            </div>
-            <div className="flex flex-col gap-1 text-right">
-              <span>DIM: {sysStatus.dim}</span>
-              <span className={sysStatus.temp > 300 ? 'text-cyber-red' : ''}>TEMP: {sysStatus.temp}K</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
