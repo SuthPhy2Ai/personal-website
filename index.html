@@ -743,7 +743,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="featured-publications-section">
             <h2>Featured Publications</h2>
             <div class="featured-publications">
                 <!-- DD2D Paper 2025 -->
@@ -1006,6 +1006,14 @@
     <button class="theme-toggle" id="themeToggle">🌙</button>
 
     <script>
+        // ============================================
+        // 配置开关 / Configuration Toggle
+        // ============================================
+        // 设置为 true 显示出版物部分，false 隐藏
+        // Set to true to show publications, false to hide
+        const SHOW_PUBLICATIONS = false;
+        // ============================================
+
         // Back to Top Button
         const backToTopBtn = document.getElementById('backToTop');
 
@@ -1038,6 +1046,15 @@
             themeToggle.textContent = isLight ? '☀️' : '🌙';
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
         });
+
+        // Publications Toggle Control
+        // 根据配置开关控制出版物部分的显示
+        if (!SHOW_PUBLICATIONS) {
+            const publicationsSection = document.getElementById('featured-publications-section');
+            if (publicationsSection) {
+                publicationsSection.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
